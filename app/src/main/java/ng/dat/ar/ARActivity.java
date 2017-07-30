@@ -12,9 +12,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.opengl.Matrix;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.SurfaceView;
 import android.view.ViewGroup;
@@ -69,6 +69,7 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
     @Override
     public void onPause() {
         releaseCamera();
+        unregisterSensors();
         super.onPause();
     }
 
@@ -146,6 +147,10 @@ public class ARActivity extends AppCompatActivity implements SensorEventListener
         sensorManager.registerListener(this,
                 sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR),
                 SensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    private void unregisterSensors(){
+        sensorManager.unregisterListener(this,sensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR));
     }
 
     @Override

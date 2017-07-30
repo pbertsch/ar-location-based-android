@@ -27,15 +27,15 @@ public class AROverlayView extends View {
     private List<ARPoint> arPoints;
 
 
-    public AROverlayView(Context context) {
+    public AROverlayView(final Context context) {
         super(context);
 
         this.context = context;
 
         //Demo points
         arPoints = new ArrayList<ARPoint>() {{
-            add(new ARPoint("Sun Wheel", 16.0404856, 108.2262447, 0));
-            add(new ARPoint("Linh Ung Pagoda", 16.1072989, 108.2343984, 0));
+            add(new ARPoint(context, "Rio Verde Oficina", 20.62446803, -103.41248731, 1625.0, R.mipmap.ic_launcher));
+            //add(new ARPoint("Linh Ung Pagoda", 16.1072989, 108.2343984, 0));
         }};
     }
 
@@ -78,8 +78,10 @@ public class AROverlayView extends View {
                 float x  = (0.5f + cameraCoordinateVector[0]/cameraCoordinateVector[3]) * canvas.getWidth();
                 float y = (0.5f - cameraCoordinateVector[1]/cameraCoordinateVector[3]) * canvas.getHeight();
 
-                canvas.drawCircle(x, y, radius, paint);
+                //canvas.drawCircle(x, y, radius, paint);
                 canvas.drawText(arPoints.get(i).getName(), x - (30 * arPoints.get(i).getName().length() / 2), y - 80, paint);
+
+                canvas.drawBitmap(arPoints.get(i).getPoiBitmap(), x, y, paint);
             }
         }
     }
